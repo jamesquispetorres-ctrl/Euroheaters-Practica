@@ -1,0 +1,939 @@
+/* Variables globales */
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #F3F4F4;
+  --color-text: #1F2328;
+  --color-text-secondary: #5F6670;
+  --color-accent: #B91C2C;
+  --color-accent-hover: #991B1B;
+  --color-border: #E2E4E7;
+  --radius-card: 14px;
+  --radius-btn: 8px;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --shadow-float: 0 4px 20px rgba(0, 0, 0, 0.18);
+  --font-main: 'Inter', sans-serif;
+}
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+/* Barra de navegación principal */
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar {
+  border-bottom: 1px solid var(--color-border);
+  background-color: #fff !important;
+}
+
+/* Links del menú */
+.navbar-nav .nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text) !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: var(--color-accent) !important;
+}
+
+/* Línea roja bajo el link activo */
+.navbar-nav .nav-link.active-link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* Botón de solicitar cotización (navbar) */
+.btn-quote {
+  background-color: var(--color-accent);
+  color: #fff !important;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none !important;
+}
+
+.btn-quote:hover,
+.btn-quote:focus,
+.btn-quote:active {
+  background-color: var(--color-accent-hover);
+  color: #fff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+}
+
+.btn-quote i,
+.btn-primary-red i {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.btn-quote:hover i,
+.btn-quote:active i,
+.btn-primary-red:hover i,
+.btn-primary-red:active i {
+  transform: translateX(3px);
+}
+
+/* =========================================
+   BREADCRUMB
+   ========================================= */
+
+/* Contenedor del breadcrumb */
+.breadcrumb-section {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.breadcrumb::-webkit-scrollbar { display: none; }
+
+.breadcrumb-item a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb-item a:hover { color: var(--color-accent); }
+
+.breadcrumb-item.active { color: var(--color-text); font-weight: 500; }
+
+/* Separador del breadcrumb con espacio correcto */
+.breadcrumb-item + .breadcrumb-item {
+  padding-left: 0.5rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  padding-right: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+/* =========================================
+   SECCIÓN HERO
+   ========================================= */
+
+/* Espacio superior del hero */
+.hero-section {
+  padding: 2.5rem 0 3rem;
+}
+
+/* Grid del hero: móvil = header -> img -> body; desktop = 2 columnas */
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header img"
+      "body img";
+    column-gap: 3rem;
+    row-gap: 1rem;
+    align-items: stretch;
+  }
+
+  .hero-header { grid-area: header; }
+
+  /* Imagen ocupa ambas filas a la derecha en desktop, centrada de forma natural */
+  .hero-img-col {
+    grid-area: img;
+    align-self: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-img-col .hero-img-wrapper {
+    height: 100%;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .hero-img-col .hero-img-wrapper img,
+  .hero-img-col .hero-floating-img {
+    max-height: 460px;
+  }
+
+  .hero-body { grid-area: body; }
+}
+
+/* Etiqueta pequeña con línea roja */
+.label-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.label-tag::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Título principal */
+.hero-title {
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+/* Párrafo del hero con espaciado equilibrado antes de Gamas */
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  max-width: 520px;
+  margin-bottom: 1.25rem;
+}
+
+/* Subtítulo gamas: bien proporcionado */
+.gamas-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Tarjetas de gama — altura uniforme, zoom ligero con sombra gris (sin subrayado rojo) */
+.gama-card {
+  background-color: var(--color-surface);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  height: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.gama-card:hover,
+.gama-card:active {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.gama-card strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+
+/* Botones del hero y productos */
+.btn-primary-red {
+  background-color: var(--color-accent);
+  color: #fff !important;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none !important;
+}
+
+.btn-primary-red:hover,
+.btn-primary-red:focus,
+.btn-primary-red:active {
+  background-color: var(--color-accent-hover);
+  color: #fff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+}
+
+.btn-outline-gray {
+  background-color: #fff;
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.65rem 1.4rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none !important;
+}
+
+.btn-outline-gray:hover,
+.btn-outline-gray:focus,
+.btn-outline-gray:active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: #fff5f5;
+  transform: translateY(-1px);
+}
+
+/* Contenedor de imagen del hero — sin bordes ni sombra, transparente */
+.hero-img-wrapper {
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+  overflow: visible;
+}
+
+.hero-img-wrapper:hover,
+.hero-img-wrapper:active {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Imagen del hero con movimiento flotante continuo */
+.hero-img-wrapper img,
+.hero-floating-img {
+  max-width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+  animation: heroFloat 3.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Pausa y ligero relieve al pasar el cursor para inspeccionar el equipo */
+.hero-img-wrapper:hover img,
+.hero-img-wrapper:active img,
+.hero-floating-img:hover {
+  animation-play-state: paused;
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Keyframes de movimiento flotante continuo suave (Floating effect) */
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-floating-img,
+  .hero-img-wrapper img {
+    animation: none;
+  }
+}
+
+/* =========================================
+   SECCIÓN PRODUCTOS
+   ========================================= */
+
+/* Área de productos */
+.products-section {
+  padding: 2.5rem 0 3.5rem;
+  background-color: #fafafa;
+}
+
+/* Encabezado de la sección */
+.section-heading {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.35rem;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Tarjeta de producto */
+.product-card {
+  padding: 1.5rem 0;
+}
+
+/* Grid de producto: columna única en móvil (header -> img -> body) */
+.product-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Desktop (≥ 992px): 2 columnas bien proporcionadas y perfectamente niveladas */
+@media (min-width: 992px) {
+  /* Producto 1: Imagen izquierda, Texto derecha */
+  .product-grid-img-left {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    grid-template-rows: max-content 1fr;
+    grid-template-areas:
+      "img header"
+      "img body";
+    column-gap: 3rem;
+    row-gap: 0.75rem;
+    align-items: start;
+  }
+  .product-grid-img-left .product-img-col {
+    grid-area: img;
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+  }
+  .product-grid-img-left .product-header {
+    grid-area: header;
+    margin-bottom: 0;
+  }
+  .product-grid-img-left .product-body {
+    grid-area: body;
+  }
+
+  /* Producto 2: Texto izquierda, Imagen derecha */
+  .product-grid-img-right {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: max-content 1fr;
+    grid-template-areas:
+      "header img"
+      "body img";
+    column-gap: 3rem;
+    row-gap: 0.75rem;
+    align-items: start;
+  }
+  .product-grid-img-right .product-img-col {
+    grid-area: img;
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+  }
+  .product-grid-img-right .product-header {
+    grid-area: header;
+    margin-bottom: 0;
+  }
+  .product-grid-img-right .product-body {
+    grid-area: body;
+  }
+
+  /* Contenedores de imagen nivelados al texto sin crear huecos artificiales */
+  .product-img-col .zoom-img {
+    height: 100%;
+    min-height: 380px;
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-img-col .zoom-img img {
+    max-height: 420px;
+    width: auto;
+    max-width: 92%;
+  }
+}
+
+/* Tablet (768px a 991px): 2 columnas niveladas */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .product-grid-img-left {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content 1fr;
+    grid-template-areas:
+      "img header"
+      "img body";
+    column-gap: 2rem;
+    row-gap: 0.75rem;
+    align-items: start;
+  }
+  .product-grid-img-left .product-img-col {
+    grid-area: img;
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+  }
+  .product-grid-img-left .product-header { grid-area: header; margin-bottom: 0; }
+  .product-grid-img-left .product-body { grid-area: body; }
+
+  .product-grid-img-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content 1fr;
+    grid-template-areas:
+      "header img"
+      "body img";
+    column-gap: 2rem;
+    row-gap: 0.75rem;
+    align-items: start;
+  }
+  .product-grid-img-right .product-img-col {
+    grid-area: img;
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+  }
+  .product-grid-img-right .product-header { grid-area: header; margin-bottom: 0; }
+  .product-grid-img-right .product-body { grid-area: body; }
+
+  .product-img-col .zoom-img {
+    height: 100%;
+    min-height: 360px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-img-col .zoom-img img {
+    max-height: 380px;
+    width: auto;
+    max-width: 92%;
+  }
+}
+
+/* Separador entre productos */
+.product-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+
+/* Contenedor de imagen de producto con zoom — sombra gris */
+.zoom-img {
+  background-color: #ffffff;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  cursor: zoom-in;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.zoom-img:hover,
+.zoom-img:active {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Imagen dentro del contenedor zoom */
+.zoom-img img {
+  max-width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Zoom activo en dispositivos con hover */
+@media (hover: hover) {
+  .zoom-img:hover img {
+    transform: scale(1.5);
+  }
+}
+
+/* Zoom en móvil por tap */
+.zoom-img.is-zoomed img {
+  transform: scale(1.4);
+}
+
+/* Etiqueta de producto simple sin contenedor (sin caja, sin fondo gris) */
+.product-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  cursor: default;
+  transition: transform 0.2s ease;
+}
+
+/* Ligero zoom en la etiqueta al interactuar */
+.product-tag:hover {
+  transform: scale(1.02);
+}
+
+/* Ícono al lado con movimiento al pasar el cursor */
+.product-tag .tag-icon {
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+.product-tag:hover .tag-icon {
+  transform: translateY(-2px) scale(1.15);
+}
+
+/* Título del producto */
+.product-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.3rem;
+}
+
+/* Subtítulo del producto */
+.product-subtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+/* Descripción del producto */
+.product-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* Cuadrícula de especificaciones */
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  background-color: #ffffff;
+}
+
+/* Celda de especificación — con transición para el hover y móvil */
+.spec-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  background-color: #ffffff;
+  transition:
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Esquinas redondeadas para acompañar la cuadrícula */
+.spec-item:first-child { border-top-left-radius: 9px; }
+.spec-item:nth-child(2) { border-top-right-radius: 9px; }
+.spec-item:nth-last-child(2):nth-child(odd) { border-bottom-left-radius: 9px; }
+.spec-item:last-child { border-bottom-right-radius: 9px; }
+
+/* Hover y tap móvil:
+   - Fondo totalmente blanco
+   - Resalta únicamente la parte inferior del cuadro (sin bordes laterales ni superior) */
+.spec-item:hover,
+.spec-item:active {
+  background-color: #ffffff !important;
+  box-shadow: inset 0 -3px 0 0 var(--color-accent) !important;
+  color: var(--color-text);
+  z-index: 2;
+}
+
+/* Última fila sin borde inferior */
+.spec-item:nth-last-child(-n+2):not(:nth-child(odd):last-child) {
+  border-bottom: none;
+}
+
+/* Si hay número impar de specs, el último no tiene borde derecho */
+.spec-item:nth-child(odd) { border-right: 1px solid var(--color-border); }
+.spec-item:nth-child(even) { border-right: none; }
+
+/* Ícono de especificación — animación de movimiento hacia arriba al interactuar */
+.spec-icon {
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+/* Hover/active del ícono: ligero movimiento hacia arriba */
+.spec-item:hover .spec-icon,
+.spec-item:active .spec-icon {
+  transform: translateY(-3px);
+}
+
+/* Lista de características con palomita */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  padding: 0.3rem 0;
+}
+
+/* Ícono de palomita roja */
+.features-list .check-icon {
+  color: var(--color-accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Botones del producto */
+.btn-download {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.55rem 1.1rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.btn-download:hover,
+.btn-download:focus {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* =========================================
+   BOTÓN FLOTANTE DE CONTACTO
+   ========================================= */
+
+/* Botón de contacto fijo */
+.btn-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-float);
+  z-index: 1050;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border: none;
+}
+
+.btn-float:hover,
+.btn-float:focus {
+  background-color: var(--color-accent-hover);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.btn-float:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+/* Móvil */
+@media (max-width: 767.98px) {
+  .hero-section { padding: 1.75rem 0 2.5rem; }
+  .hero-grid { gap: 1rem; }
+  .hero-header { margin-bottom: 0.25rem; }
+  .hero-desc { max-width: 100%; margin-bottom: 1.25rem; }
+
+  /* Imagen del hero en móvil */
+  .hero-img-wrapper {
+    min-height: 240px;
+    padding: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-img-wrapper img { max-height: 260px; }
+
+  /* Gamas en móvil */
+  .hero-gamas-block { margin-top: 1rem; }
+  .gamas-title { margin-top: 0; margin-bottom: 0.75rem; }
+
+  /* Botones del hero a todo el ancho */
+  .hero-actions .btn-primary-red,
+  .hero-actions .btn-outline-gray {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Sección de productos compacta en móvil */
+  .products-section { padding: 1.75rem 0 2.25rem; }
+  .section-subtitle { margin-bottom: 1.25rem; }
+
+  /* Tarjeta y grid de producto sin espacios excesivos */
+  .product-card { padding: 1.25rem 0; }
+  .product-grid { gap: 0.85rem; }
+  .product-header { margin-bottom: 0.15rem; }
+  .product-title { font-size: 1.35rem; margin-bottom: 0.2rem; }
+  .product-subtitle { font-size: 0.875rem; margin-bottom: 0.35rem; }
+
+  /* Imagen de producto ajustada en móvil */
+  .zoom-img {
+    min-height: 220px;
+    margin-bottom: 0.35rem;
+    padding: 1rem;
+  }
+
+  .zoom-img img { max-height: 230px; }
+
+  .product-desc { margin-bottom: 0.75rem; font-size: 0.875rem; }
+  .specs-grid { margin-bottom: 0.85rem; }
+  .features-list { margin-bottom: 1rem; }
+
+  /* Botones de producto a todo el ancho */
+  .product-actions .btn-primary-red,
+  .product-actions .btn-download {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Pantallas ≤ 390px: ajuste del H1 */
+@media (max-width: 390px) {
+  .hero-title {
+    font-size: 1.65rem;
+  }
+}
+
+/* Pantallas muy pequeñas (≤ 375px de ancho, ej. 375x667):
+   Únicamente en estas dimensiones se muestra 'Controladores de Tempe...' con ellipsis */
+@media (max-width: 375px) {
+  .hero-title {
+    font-size: 1.55rem;
+  }
+
+  .breadcrumb-item.active {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 170px;
+    vertical-align: bottom;
+  }
+}
+
+/* Feedback táctil e interacciones fluidas en dispositivos móviles */
+@media (hover: none) {
+  .gama-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .spec-item:active {
+    background-color: #ffffff !important;
+    box-shadow: inset 0 -3px 0 0 var(--color-accent) !important;
+  }
+
+  .hero-img-wrapper:active {
+    transform: scale(0.99);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-img-wrapper { min-height: 300px; }
+}
+
+/* Focus visible global */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
